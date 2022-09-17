@@ -7,43 +7,43 @@ import { find } from 'lodash';
 
 export async function createUserSessionHandler(req: Request, res: Response) {
 
-    const user = await validatePassword(req.body);
+  const user = await validatePassword(req.body);
 
-    if (!user) {
-        return res.status(401).json('Wrong credentials');
-    }
+  if (!user) {
+    return res.status(401).json('Wrong credentials');
+  }
 
-    const session = await createSession(user._id, req.get('user-agent') || '')
+  const session = await createSession(user._id, req.get('user-agent') || '')
 
-    const accessToken = signJwt(
-        { ...user, session: session._id },
-        { expiresIn: config.get('accessTokenTtl') }
-    );
+  const accessToken = signJwt(
+    { ...user, session: session._id },
+    { expiresIn: config.get('accessTokenTtl') }
+  );
 
-    const refreshToken = signJwt(
-        { ...user, session: session._id },
-        { expiresIn: config.get('refreshTokenTtl') }
-    );
+  const refreshToken = signJwt(
+    { ...user, session: session._id },
+    { expiresIn: config.get('refreshTokenTtl') }
+  );
 
-    return res.send({ accessToken, refreshToken });
+  return res.send({ accessToken, refreshToken });
 }
 
 export async function getUserSessionsHandler(req: Request, res: Response) {
-    const userId = res.locals.user._id;
+  const userId = res.locals.user._id;
 
-    const sessions = await findSessions({ user: userId, valid: true })
+  const sessions = await findSessions({ user: userId, valid: true })
 
-    return res.send(sessions)
+  return res.send(sessions)
 }
 
 export async function deleteSessionHandler(req: Request, res: Response) {
 
-    const sessionId = res.locals.session;
+  const sessionId = res.locals.session;
 
-    await updateSession({ _id: sessionId }, { valid: false });
+  await updateSession({ _id: sessionId }, { valid: false });
 
-    return res.send({
-        accessToken: null,
-        refreshToken: null,
-    })
+  return res.send({
+    accessToken: null,
+    refreshToken: null,
+  })
 }
