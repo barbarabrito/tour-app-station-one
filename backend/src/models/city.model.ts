@@ -4,6 +4,7 @@ export interface CityDocument extends mongoose.Document {
   name: string;
   tours: string[];
   restaurants: string[];
+  hotels: string[];
   photo: string;
 }
 
@@ -12,6 +13,7 @@ const citySchema = new mongoose.Schema({
   name: { type: String, required: true },
   tours: { type: Array, required: true },
   restaurants: { type: Array, required: true },
+  hotels: { type: Array },
   photo: { type: String, required: true }
 
 });

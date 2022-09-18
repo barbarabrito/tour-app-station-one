@@ -1,6 +1,7 @@
 import { CreateCityInput } from "../schema/city.schema";
-import { createCity } from "../service/city.service";
+import { createCity, findCity } from "../service/city.service";
 import { Request, Response } from "express";
+import CityModel from "../models/city.model";
 
 export async function createCityHandler(req: Request<{}, {}, CreateCityInput["body"]>, res: Response) {
 
@@ -11,4 +12,13 @@ export async function createCityHandler(req: Request<{}, {}, CreateCityInput["bo
     console.log('error')
     return res.status(409).send(e.message)
   }
+}
+
+export async function getCitiesHandler(req: Request, res: Response) {
+
+  const { name } = req.params;
+
+  const city = await findCity({ name })
+
+  return res.send(city);
 }

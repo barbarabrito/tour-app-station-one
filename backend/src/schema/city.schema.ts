@@ -6,11 +6,12 @@ export const createCitySchema = object({
       required_error: 'City name is required',
     }),
     tours: z.array(z.string({
-      required_error: 'Tours are is required',
+      required_error: 'Tours are required',
     })).nonempty(),
     restaurants: z.array(z.string({
       required_error: 'Restaurants are required',
     })).nonempty(),
+    hotels: z.array(z.string()),
     photo: string({
       required_error: 'Photo is required',
     }),
