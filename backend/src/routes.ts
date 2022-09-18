@@ -8,7 +8,6 @@ import requireUser from './middleware/requireUser';
 import { createCityHandler, getCitiesHandler } from './controller/city.controller';
 import { createCitySchema } from './schema/city.schema';
 
-
 function routes(app: Express) {
 
   app.get('/healthcheck', (req: Request, res: Response) => {

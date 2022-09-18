@@ -1,20 +1,28 @@
-import { object, string, TypeOf, z } from 'zod';
+import { array, object, string, TypeOf } from 'zod';
 
 export const createCitySchema = object({
   body: object({
     name: string({
       required_error: 'City name is required',
     }),
-    tours: z.array(z.string({
-      required_error: 'Tours are required',
-    })).nonempty(),
-    restaurants: z.array(z.string({
-      required_error: 'Restaurants are required',
-    })).nonempty(),
-    hotels: z.array(z.string()),
+    tours: array(
+      object({
+        name: string(),
+        photo: string(),
+      })).nonempty(),
+    restaurants: array(
+      object({
+        name: string(),
+        photo: string(),
+      })),
+    hotels: array(
+      object({
+        name: string(),
+        photo: string(),
+      })),
     photo: string({
-      required_error: 'Photo is required',
-    }),
+      required_error: 'A picture is required',
+    })
   })
 });
 

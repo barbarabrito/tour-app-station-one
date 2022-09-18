@@ -13,9 +13,11 @@ app.use(express.json());
 app.use(deseriazeUser);
 
 app.listen(port, async () => {
+
   console.log(`app is running at http://localhost:${port}`)
 
   await connect();
 
   routes(app);
+
 });

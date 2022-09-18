@@ -2,18 +2,18 @@ import mongoose from "mongoose";
 
 export interface CityDocument extends mongoose.Document {
   name: string;
-  tours: string[];
-  restaurants: string[];
-  hotels: string[];
+  tours: object;
+  restaurants: object;
+  hotels: object;
   photo: string;
 }
 
 const citySchema = new mongoose.Schema({
 
   name: { type: String, required: true },
-  tours: { type: Array, required: true },
-  restaurants: { type: Array, required: true },
-  hotels: { type: Array },
+  tours: { type: Object, required: true },
+  restaurants: { type: Object },
+  hotels: { type: Object },
   photo: { type: String, required: true }
 
 });
