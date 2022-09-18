@@ -4,7 +4,8 @@ export const createCitySchema = object({
   body: object({
     name: string({
       required_error: 'City name is required',
-    }),
+      invalid_type_error: 'City name must be text only'
+    }).min(2, { message: "Must be 1 or more characters long" }),
     tours: array(
       object({
         name: string(),

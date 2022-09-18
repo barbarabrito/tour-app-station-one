@@ -8,7 +8,6 @@ export async function createCityHandler(req: Request<{}, {}, CreateCityInput["bo
     const city = await createCity(req.body);
     return res.send(city)
   } catch (e: any) {
-    console.log('error')
     return res.status(409).send(e.message)
   }
 

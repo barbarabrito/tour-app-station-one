@@ -10,10 +10,33 @@ export interface CityDocument extends mongoose.Document {
 
 const citySchema = new mongoose.Schema({
 
-  name: { type: String, required: true },
-  tours: { type: Object, required: true },
-  restaurants: { type: Object },
-  hotels: { type: Object },
+  name: { type: String, required: true, unique: true },
+
+  tours: [{
+    name: {
+      type: String,
+    },
+    photo: {
+      type: String,
+    }
+  }],
+  restaurants: [{
+    name: {
+      type: String,
+    },
+    photo: {
+      type: String,
+    }
+  }],
+  hotels: [{
+    name: {
+      type: String,
+    },
+    photo: {
+      type: String,
+    }
+  }],
+
   photo: { type: String, required: true }
 
 });
