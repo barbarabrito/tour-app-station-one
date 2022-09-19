@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { hotelsSchema } from "./hotel.model";
+import { restaurantsSchema } from "./restaurant.model";
+import { ToursModel, toursSchema } from "./tour.model";
 
 export interface CityDocument extends mongoose.Document {
   name: string;
@@ -12,35 +15,15 @@ const citySchema = new mongoose.Schema({
 
   name: { type: String, required: true, unique: true },
 
-  tours: [{
-    name: {
-      type: String,
-    },
-    photo: {
-      type: String,
-    }
-  }],
-  restaurants: [{
-    name: {
-      type: String,
-    },
-    photo: {
-      type: String,
-    }
-  }],
-  hotels: [{
-    name: {
-      type: String,
-    },
-    photo: {
-      type: String,
-    }
-  }],
+  tours: [toursSchema],
+  restaurants: [restaurantsSchema],
+  hotels: [hotelsSchema],
 
   photo: { type: String, required: true }
 
 });
 
-const CityModel = mongoose.model<CityDocument>('City', citySchema)
+const CityModel = mongoose.model<CityDocument>('City', citySchema);
+
 
 export default CityModel

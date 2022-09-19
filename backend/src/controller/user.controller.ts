@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
+import UserModel from "../models/user.model";
 import { CreateUserInput } from "../schema/user.schema";
-import { createUser } from "../service/user.service";
+import { createUser, findDestinations } from "../service/user.service";
 
 export async function createUserHandler(req: Request<{}, {}, CreateUserInput["body"]>, res: Response) {
   try {
@@ -10,4 +11,29 @@ export async function createUserHandler(req: Request<{}, {}, CreateUserInput["bo
     console.log('error')
     return res.status(409).send(e.message)
   }
+}
+
+export async function getUserSavedDestinationsHandler(req: Request, res: Response) {
+
+  const { id } = req.params;
+
+  try {
+
+    const user = await findDestinations({ _id: id });
+    if (user) {
+      console.log(user.tours)
+      res.status(200).json(user.tours);
+    }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+
+}
+
+export async function getAllUsersHandler(req: Request, res: Response) {
+
+  const users = await UserModel.find().sort();
+
+  res.send({ users: users })
+
 }

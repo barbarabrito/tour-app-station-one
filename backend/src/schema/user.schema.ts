@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from "zod";
+import { array, object, string, TypeOf } from "zod";
 
 export const createUserSchema = object({
   body: object({
@@ -14,6 +14,7 @@ export const createUserSchema = object({
     email: string({
       required_error: 'Email is required',
     }).email('Not a valid email'),
+    tours: array(string({})),
   }).refine((data) => data.password === data.passwordConfirmation, {
     message: 'Passwords do not match',
     path: ['passwordConfirmation'],
