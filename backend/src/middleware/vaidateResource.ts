@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import _ from 'lodash';
 import { AnyZodObject } from 'zod';
 
-
 const validateResource = (schema: AnyZodObject) => (req: Request, res: Response, next: NextFunction) => {
 
   try {
@@ -15,6 +14,7 @@ const validateResource = (schema: AnyZodObject) => (req: Request, res: Response,
   } catch (e: any) {
     return res.status(400).send(e.errors);
   }
+
 };
 
 export default validateResource

@@ -24,4 +24,4 @@ export const hotelSchema = new mongoose.Schema({
 
 });
 
-const HotelModel = mongoose.model<HotelDocument>('hotel', hotelSchema);
+export const HotelModel = mongoose.model<HotelDocument>('hotel', hotelSchema);
