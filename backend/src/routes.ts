@@ -1,7 +1,7 @@
 import { Express, Request, Response } from 'express';
 import { createUserSchema } from "./schema/user.schema";
 import validateResource from './middleware/vaidateResource'
-import { createUserHandler } from './controller/user.controller';
+import { createUserHandler, getAllUsersHandler, getUserSavedDestinationsHandler } from './controller/user.controller';
 import { createUserSessionHandler, deleteSessionHandler, getUserSessionsHandler } from './controller/session.controller';
 import createSessionSchema from './schema/session.schema';
 import requireUser from './middleware/requireUser';
@@ -16,6 +16,10 @@ function routes(app: Express) {
 
   app.post('/api/users', validateResource(createUserSchema), createUserHandler);
 
+  app.get('/api/users/:id/savedDestinations', getUserSavedDestinationsHandler);
+
+  app.get('/api/users', getAllUsersHandler);
+
   app.post('/api/sessions', validateResource(createSessionSchema), createUserSessionHandler);
 
   app.get('/api/sessions', requireUser, getUserSessionsHandler);
@@ -25,6 +29,7 @@ function routes(app: Express) {
   app.post('/api/cities', validateResource(createCitySchema), createCityHandler);
 
   app.get('/api/cities/:name', getCitiesHandler);
+
 
 }
 
