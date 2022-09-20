@@ -1,13 +1,21 @@
 import mongoose from "mongoose";
 
 export interface HotelDocument extends mongoose.Document {
-    name: object;
-    photo: object;
+    name: string;
+    address: string;
+    phone: string;
+    photo: string;
 }
 
-export const hotelsSchema = new mongoose.Schema({
+export const hotelSchema = new mongoose.Schema({
 
     name: {
+        type: String,
+    },
+    address: {
+        type: String,
+    },
+    phone: {
         type: String,
     },
     photo: {
@@ -16,4 +24,4 @@ export const hotelsSchema = new mongoose.Schema({
 
 });
 
-const HotelModel = mongoose.model<HotelDocument>('hotels', hotelsSchema);
+const HotelModel = mongoose.model<HotelDocument>('hotel', hotelSchema);

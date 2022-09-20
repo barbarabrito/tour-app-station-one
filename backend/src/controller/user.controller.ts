@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import UserModel from "../models/user.model";
 import { CreateUserInput } from "../schema/user.schema";
-import { createUser, findDestinations } from "../service/user.service";
+import { createUser, findDestinations, getAllUsers } from "../service/user.service";
 
 export async function createUserHandler(req: Request<{}, {}, CreateUserInput["body"]>, res: Response) {
   try {
@@ -21,7 +20,7 @@ export async function getUserSavedDestinationsHandler(req: Request, res: Respons
 
     const user = await findDestinations({ _id: id });
     if (user) {
-      console.log(user.tours)
+      console.log(user.tours);
       res.status(200).json(user.tours);
     }
   } catch (error) {
@@ -32,7 +31,7 @@ export async function getUserSavedDestinationsHandler(req: Request, res: Respons
 
 export async function getAllUsersHandler(req: Request, res: Response) {
 
-  const users = await UserModel.find().sort();
+  const users = await getAllUsers();
 
   res.send({ users: users })
 

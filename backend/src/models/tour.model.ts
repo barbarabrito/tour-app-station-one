@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
 
 export interface TourDocument extends mongoose.Document {
-    name: object;
-    photo: object;
+    name: string;
+    address: string;
+    photo: string;
 }
 
-export const toursSchema = new mongoose.Schema({
+export const tourSchema = new mongoose.Schema({
 
     name: {
+        type: String,
+    },
+    address: {
         type: String,
     },
     photo: {
@@ -16,4 +20,4 @@ export const toursSchema = new mongoose.Schema({
 
 });
 
-export const ToursModel = mongoose.model('tours', toursSchema);
+export const TourModel = mongoose.model('tour', tourSchema);

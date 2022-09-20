@@ -3,7 +3,6 @@ import { createSession, findSessions, updateSession } from '../service/session.s
 import { validatePassword } from '../service/user.service';
 import { signJwt } from '../utils/jwt.utils';
 import config from 'config';
-import { find } from 'lodash';
 
 export async function createUserSessionHandler(req: Request, res: Response) {
 
