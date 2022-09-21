@@ -9,6 +9,8 @@ export interface UserDocument extends mongoose.Document {
   createdAt: Date;
   updatedAt: Date;
   tours: string[];
+  hotels: string[];
+  restaurants: string[];
   comparePassword(canditatePassword: string): Promise<string>
 }
 
@@ -17,6 +19,8 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   tours: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tour' }],
+  hotels: [{ type: mongoose.Schema.Types.ObjectId, ref: 'hotel' }],
+  restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'restaurant' }],
 }, {
   timestamps: true
 });

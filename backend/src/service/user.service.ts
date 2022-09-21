@@ -41,6 +41,14 @@ export async function getAllUsers() {
   return UserModel.find().sort();
 }
 
-export async function findDestinations(query: FilterQuery<UserDocument>) {
+export async function findTours(query: FilterQuery<UserDocument>) {
   return UserModel.findById(query).populate('tours');
+}
+
+export async function findHotels(query: FilterQuery<UserDocument>) {
+  return UserModel.findById(query).populate('hotels');
+}
+
+export async function findRestaurants(query: FilterQuery<UserDocument>) {
+  return UserModel.findById(query).populate('restaurants');
 }

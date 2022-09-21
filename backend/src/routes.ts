@@ -1,7 +1,7 @@
 import { Express, Request, Response } from 'express';
 import { createUserSchema } from "./schema/user.schema";
 import validateResource from './middleware/vaidateResource'
-import { createUserHandler, getAllUsersHandler, getUserSavedDestinationsHandler } from './controller/user.controller';
+import { createUserHandler, getAllUsersHandler, getUserSavedHotelsHandler, getUserSavedRestaurantsHandler, getUserSavedToursHandler, } from './controller/user.controller';
 import { createUserSessionHandler, deleteSessionHandler, getUserSessionsHandler } from './controller/session.controller';
 import createSessionSchema from './schema/session.schema';
 import requireUser from './middleware/requireUser';
@@ -14,21 +14,25 @@ function routes(app: Express) {
     res.sendStatus(200);
   })
 
-  app.post('/api/users', validateResource(createUserSchema), createUserHandler);
+  app.post('/users', validateResource(createUserSchema), createUserHandler);
 
-  app.get('/api/users/:id/savedDestinations', getUserSavedDestinationsHandler);
+  app.get('/users/:id/saved/tours', requireUser, getUserSavedToursHandler);
 
-  app.get('/api/users', getAllUsersHandler);
+  app.get('/users/:id/saved/hotels', requireUser, getUserSavedHotelsHandler);
 
-  app.post('/api/sessions', validateResource(createSessionSchema), createUserSessionHandler);
+  app.get('/users/:id/saved/restaurants', requireUser, getUserSavedRestaurantsHandler);
 
-  app.get('/api/sessions', requireUser, getUserSessionsHandler);
+  app.get('/users', getAllUsersHandler);
 
-  app.delete('/api/sessions', requireUser, deleteSessionHandler);
+  app.post('/sessions', validateResource(createSessionSchema), createUserSessionHandler);
 
-  app.post('/api/cities', validateResource(createCitySchema), createCityHandler);
+  app.get('/sessions', requireUser, getUserSessionsHandler);
 
-  app.get('/api/cities/:name', getCitiesHandler);
+  app.delete('/sessions', requireUser, deleteSessionHandler);
+
+  app.post('/cities', validateResource(createCitySchema), createCityHandler);
+
+  app.get('/cities/:name', getCitiesHandler);
 
 
 }
