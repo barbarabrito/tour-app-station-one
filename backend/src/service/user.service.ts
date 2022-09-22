@@ -1,4 +1,4 @@
-import { DocumentDefinition } from 'mongoose';
+import { DocumentDefinition, QueryOptions, UpdateQuery } from 'mongoose';
 import { FilterQuery } from "mongoose";
 import { omit } from "lodash";
 import UserModel, { UserDocument } from "../models/user.model";
@@ -51,4 +51,12 @@ export async function findHotels(query: FilterQuery<UserDocument>) {
 
 export async function findRestaurants(query: FilterQuery<UserDocument>) {
   return UserModel.findById(query).populate('restaurants');
+}
+
+export async function updateUser(
+  query: FilterQuery<UserDocument>,
+  update: UpdateQuery<UserDocument>,
+  options: QueryOptions
+) {
+  return UserModel.findOneAndUpdate(query, update, options);
 }

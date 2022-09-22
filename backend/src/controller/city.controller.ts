@@ -13,7 +13,7 @@ export async function createCityHandler(req: Request<{}, {}, CreateCityInput["bo
 
 }
 
-export async function getCitiesHandler(req: Request, res: Response) {
+export async function getCitiesByNameHandler(req: Request, res: Response) {
 
   const { name } = req.params;
 

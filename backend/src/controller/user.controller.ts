@@ -1,6 +1,15 @@
 import { Request, Response } from "express";
 import { CreateUserInput } from "../schema/user.schema";
-import { createUser, findHotels, findRestaurants, findTours, getAllUsers } from "../service/user.service";
+import {
+  createUser,
+  findHotels,
+  findRestaurants,
+  findTours,
+  getAllUsers,
+  updateUser
+}
+  from "../service/user.service";
+
 
 export async function createUserHandler(req: Request<{}, {}, CreateUserInput["body"]>, res: Response) {
   try {
@@ -10,6 +19,14 @@ export async function createUserHandler(req: Request<{}, {}, CreateUserInput["bo
     console.log('error')
     return res.status(409).send(e.message)
   }
+}
+
+export async function getAllUsersHandler(req: Request, res: Response) {
+
+  const users = await getAllUsers();
+
+  res.send({ users: users })
+
 }
 
 export async function getUserSavedToursHandler(req: Request, res: Response) {
@@ -60,11 +77,16 @@ export async function getUserSavedRestaurantsHandler(req: Request, res: Response
 
 }
 
+export async function updateUserHandler(req: Request, res: Response) {
 
-export async function getAllUsersHandler(req: Request, res: Response) {
+  const { id } = res.locals.user._id;
 
-  const users = await getAllUsers();
+  const update = req.body;
 
-  res.send({ users: users })
+  const updatedUser = await updateUser({ id }, update, {
+    new: true,
+  });
+
+  return res.send(updatedUser);
 
 }
