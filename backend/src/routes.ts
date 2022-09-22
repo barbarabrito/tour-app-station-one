@@ -1,7 +1,16 @@
 import { Express, Request, Response } from 'express';
 import { createUserSchema } from "./schema/user.schema";
 import validateResource from './middleware/vaidateResource'
-import { createUserHandler, getAllUsersHandler, getUserSavedHotelsHandler, getUserSavedRestaurantsHandler, getUserSavedToursHandler, updateUserHandler, } from './controller/user.controller';
+
+import {
+  createUserHandler,
+  getAllUsersHandler,
+  getUserSavedHotelsHandler,
+  getUserSavedRestaurantsHandler,
+  getUserSavedToursHandler,
+  updateUserHandler
+} from './controller/user.controller';
+
 import { createUserSessionHandler, deleteSessionHandler, getUserSessionsHandler } from './controller/session.controller';
 import createSessionSchema from './schema/session.schema';
 import requireUser from './middleware/requireUser';
@@ -34,11 +43,7 @@ function routes(app: Express) {
 
   app.get('/cities/:name', getCitiesByNameHandler);
 
-  app.patch(
-    "/users/edit/:id",
-    [requireUser],
-    updateUserHandler
-  );
+  app.patch("/users/edit/:id", [requireUser], updateUserHandler);
 }
 
 export default routes;
