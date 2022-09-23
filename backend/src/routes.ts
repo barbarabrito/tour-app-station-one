@@ -4,7 +4,6 @@ import validateResource from './middleware/vaidateResource'
 
 import {
   createUserHandler,
-  getAllUsersHandler,
   getUserSavedHotelsHandler,
   getUserSavedRestaurantsHandler,
   getUserSavedToursHandler,
@@ -14,14 +13,51 @@ import {
 import { createUserSessionHandler, deleteSessionHandler, getUserSessionsHandler } from './controller/session.controller';
 import createSessionSchema from './schema/session.schema';
 import requireUser from './middleware/requireUser';
-import { createCityHandler, getCitiesByNameHandler } from './controller/city.controller';
+
+import {
+  createCityHandler,
+  getAllCitiesHandler,
+  getCitiesByNameHandler
+} from './controller/city.controller';
+
 import { createCitySchema } from './schema/city.schema';
+import { getCitiesNames } from './service/city.service';
+import { getAllToursHandler } from './controller/tour.controller';
+import { getAllHotelsHandler } from './controller/hotel.controller';
+import { getAllRestaurantsHandler } from './controller/restaurant.controller';
 
 function routes(app: Express) {
 
+  app.get('/', async (req: Request, res: Response) => {
+
+    let list = await getCitiesNames();
+
+    if (list) {
+
+      if (list.length > 0) {
+
+        res.send(
+          ` 
+            <h2>Rota inicial</h2>
+            <p> Cidades disponíveis para consulta: ${list}.</p>
+          `
+        );
+
+      } else {
+
+        res.send(
+          ` 
+            <h2>Rota inicial</h2>
+          `
+        );
+      }
+    }
+
+  });
+
   app.get('/healthcheck', (req: Request, res: Response) => {
     res.sendStatus(200);
-  })
+  });
 
   app.post('/users', validateResource(createUserSchema), createUserHandler);
 
@@ -31,8 +67,6 @@ function routes(app: Express) {
 
   app.get('/users/:id/saved/restaurants', requireUser, getUserSavedRestaurantsHandler);
 
-  app.get('/users', getAllUsersHandler);
-
   app.post('/sessions', validateResource(createSessionSchema), createUserSessionHandler);
 
   app.get('/sessions', requireUser, getUserSessionsHandler);
@@ -41,9 +75,17 @@ function routes(app: Express) {
 
   app.post('/cities', validateResource(createCitySchema), createCityHandler);
 
+  app.get('/cities', getAllCitiesHandler);
+
   app.get('/cities/:name', getCitiesByNameHandler);
 
-  app.patch("/users/edit/:id", [requireUser], updateUserHandler);
+  app.patch("/users/edit/:id", requireUser, updateUserHandler);
+
+  app.get('/tours', getAllToursHandler);
+
+  app.get('/hotels', getAllHotelsHandler);
+
+  app.get('/restaurants', getAllRestaurantsHandler);
 }
 
 export default routes;

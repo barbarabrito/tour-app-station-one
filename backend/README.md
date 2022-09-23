@@ -8,8 +8,10 @@
 2. [Solução](#solucao)
    1. [Tecnologias utilizadas](#tecnologias)
    2. [Descrição da solução](#descricao-solucao)
-   3. [Endpoints da API](#endpoints)
-   4. [Instruções para rodar o app](#instrucoes)
+   3. [Detalhes técnicos](#detalhes-tecnicos)
+   4. [Endpoints da API](#endpoints)
+   5. [Instruções para rodar o app](#instrucoes)
+   6. [Demonstração](#demonstracao)
 
 # Briefing
 
@@ -59,6 +61,12 @@ A API possui:
 - Uma feature que permite ao usuário guardar/salvar pontos turísticos, hotéis e restaurantes do seu interesse
 - Login e sessão para proteção de acesso ao perfil do usuário
 
+<a name="detalhes-tecnicos"/>
+
+## Detalhes técnicos
+
+O controle de acesso das rotas da API acontecem por meio de um token que é gerado no login. Este token tem a duração de 15 minutos. Após a expiração, uma nova checagem é realizada e se o retorno for válido, é gerado um novo token (_refresh token_).
+
 <a name="tecnologias"/>
 
 ## Tecnologias utilizadas
@@ -77,42 +85,62 @@ A API possui:
 
 ## Endpoints
 
-- POST `/users`
+- GET `/` : Página inicial. Informa as cidades cadastradas.
 
-- GET `/users/:id/saved/tours`
+- POST `/users` : Retorna usuários cadastrados
 
-- GET `/users/:id/saved/hotels`
+- GET `/users/:id/saved/tours` : Retorna os pontos turísticos salvos de um determinado usuário (**rota privada** acessada apenas por token)
 
-- GET `/users/:id/saved/restaurants`
+- GET `/users/:id/saved/hotels` : Retorna os hotéis salvos de um determinado usuário (**rota privada**)
 
-- GET `/users`
+- GET `/users/:id/saved/restaurants` : Retorna os restaurantes salvos de um determinado usuário (**rota privada**)
 
-- POST `/sessions`
+- POST `/sessions` : Cria a sessão do usuário
 
-- GET `/sessions`
+- GET `/sessions` : Retorna as sessões de um usuário (**rota privada**)
 
-- DELETE `/sessions`
+- DELETE `/sessions` : Remove uma sessão (**rota privada**)
 
-- POST `/cities`
+- POST `/cities` : Cadastro de cidades
 
-- GET `/cities/:name`
+- GET `/cities` : Retorna todas as cidades cadastradas
 
-- PATCH `/users/edit/:id `
+- GET `/cities/:name` : Rota de pesquisa. Retorna a cidade passada como parâmetro. O nome deve ser digitado respeitando letras maiúsculas e acentos. Ex: localhost:5000/cities/São Paulo.
 
-<a name="intrucoes"/>
+- PATCH `/users/edit/:id` : Rota que permite que o usuário altere seus dados de perfil e/ou adicione/remova pontos turísticos, hotéis e restaurantes salvos na sua conta (**rota privada**)
+
+- GET `/tours` : Retorna todos os pontos turísticos cadastrados
+
+- GET `/restaurants` : Retorna todos os restaurantes cadastrados
+
+- GET `/hotels` : Retorna todos os hotéis cadastrados
+
+<a name="instrucoes"/>
 
 ## Instruções para rodar o app
 
-#### 1. Inicie o MongoDB
+#### 1. Você vai precisar de uma chave privada e uma chave pública para substituir as varáveis de ambiente `PRIVATE_KEY` e `PUBLIC_KEY`. Você pode gerar suas chaves aqui: [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo)
 
-#### 2. Instale as dependências do projeto:
+#### 2. Inicie o MongoDB
+
+#### 3. Instale as dependências do projeto:
 
 ```bash
 npm install
 ```
 
-#### 3. Exeute a aplicação:
+#### 4. Execute a aplicação:
 
 ```bash
 npm run dev
 ```
+
+#### 5. Para acessar as rotas privadas da API, é necessário enviar o token no cabeçalho das requisições
+
+<a name="demonstracao"/>
+
+## Demonstração
+
+#### Página inicial
+
+![preview](./preview/index.png)

@@ -5,7 +5,6 @@ import {
   findHotels,
   findRestaurants,
   findTours,
-  getAllUsers,
   updateUser
 }
   from "../service/user.service";
@@ -21,21 +20,22 @@ export async function createUserHandler(req: Request<{}, {}, CreateUserInput["bo
   }
 }
 
-export async function getAllUsersHandler(req: Request, res: Response) {
-
-  const users = await getAllUsers();
-
-  res.send({ users: users })
-
-}
-
 export async function getUserSavedToursHandler(req: Request, res: Response) {
 
+  const tokenId = res.locals.user._id;
+
   const { id } = req.params;
+
+  console.log(id)
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
 
   try {
 
     const user = await findTours({ _id: id });
+    console.log(user)
     if (user) {
       res.status(200).json(user.tours);
     }
@@ -47,7 +47,15 @@ export async function getUserSavedToursHandler(req: Request, res: Response) {
 
 export async function getUserSavedHotelsHandler(req: Request, res: Response) {
 
+  const tokenId = res.locals.user._id;
+
   const { id } = req.params;
+
+  console.log(id)
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
 
   try {
 
@@ -63,7 +71,15 @@ export async function getUserSavedHotelsHandler(req: Request, res: Response) {
 
 export async function getUserSavedRestaurantsHandler(req: Request, res: Response) {
 
+  const tokenId = res.locals.user._id;
+
   const { id } = req.params;
+
+  console.log(id)
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
 
   try {
 
@@ -79,11 +95,19 @@ export async function getUserSavedRestaurantsHandler(req: Request, res: Response
 
 export async function updateUserHandler(req: Request, res: Response) {
 
-  const { id } = res.locals.user._id;
+  const tokenId = res.locals.user._id;
+
+  const { id } = req.params;
+
+  console.log(id)
 
   const update = req.body;
 
-  const updatedUser = await updateUser({ id }, update, {
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
+
+  const updatedUser = await updateUser({ _id: id }, update, {
     new: true,
   });
 

@@ -15,9 +15,9 @@ const citySchema = new mongoose.Schema({
 
   name: { type: String, required: true, unique: true },
 
-  tours: [tourSchema],
-  restaurants: [restaurantSchema],
-  hotels: [hotelSchema],
+  tours: { type: Object, tourSchema, _id: false },
+  restaurants: { type: Object, restaurantSchema, _id: false },
+  hotels: { type: Object, hotelSchema, _id: false },
 
   photo: { type: String, required: true }
 

@@ -20,3 +20,32 @@ export async function createCity(input: DocumentDefinition<CityDocument>) {
 export async function findCity(query: FilterQuery<CityDocument>) {
   return CityModel.findOne(query).lean();
 }
+
+export async function findAllCities() {
+  return CityModel.find().sort();
+}
+
+export async function getCitiesNames() {
+
+  let citiesList = [];
+
+  try {
+
+    const cities = await CityModel.find().sort();
+
+    if (cities) {
+
+      for (let i = 0; i < cities.length; i++) {
+        let resp = cities[i].name;
+        citiesList.push(' ' + resp);
+      }
+
+    }
+
+    return citiesList
+
+  } catch (error: any) {
+    console.log(error);
+  }
+
+}

@@ -37,10 +37,6 @@ export async function findUser(query: FilterQuery<UserDocument>) {
   return UserModel.findOne(query).lean();
 }
 
-export async function getAllUsers() {
-  return UserModel.find().sort();
-}
-
 export async function findTours(query: FilterQuery<UserDocument>) {
   return UserModel.findById(query).populate('tours');
 }
@@ -58,5 +54,5 @@ export async function updateUser(
   update: UpdateQuery<UserDocument>,
   options: QueryOptions
 ) {
-  return UserModel.findOneAndUpdate(query, update, options);
+  return UserModel.findByIdAndUpdate(query, update, options);
 }
