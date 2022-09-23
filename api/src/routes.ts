@@ -21,38 +21,27 @@ import {
 } from './controller/city.controller';
 
 import { createCitySchema } from './schema/city.schema';
-import { getCitiesNames } from './service/city.service';
 import { getAllToursHandler } from './controller/tour.controller';
 import { getAllHotelsHandler } from './controller/hotel.controller';
 import { getAllRestaurantsHandler } from './controller/restaurant.controller';
+import { getCitiesList } from './service/city.service';
 
 function routes(app: Express) {
 
   app.get('/', async (req: Request, res: Response) => {
 
-    let list = await getCitiesNames();
+    let list = await getCitiesList();
 
-    if (list) {
+    if (list && list.length > 0) {
 
-      if (list.length > 0) {
-
-        res.send(
-          ` 
-            <h2>Rota inicial</h2>
-            <p> Cidades disponíveis para consulta: ${list}.</p>
-          `
-        );
-
-      } else {
-
-        res.send(
-          ` 
-            <h2>Rota inicial</h2>
-          `
-        );
-      }
+      res.send(
+        ` <h2> Rota inicial </h2>
+          <p> Cidades disponíveis para consulta: ${list}. </p>
+        `
+      );
+    } else {
+      res.send(` <h2>Rota inicial</h2>`);
     }
-
   });
 
   app.get('/healthcheck', (req: Request, res: Response) => {

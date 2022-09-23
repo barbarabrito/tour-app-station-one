@@ -11,7 +11,6 @@
    3. [Detalhes técnicos](#detalhes-tecnicos)
    4. [Endpoints da API](#endpoints)
    5. [Instruções para rodar o app](#instrucoes)
-   6. [Demonstração](#demonstracao)
 
 # Briefing
 
@@ -85,9 +84,9 @@ O controle de acesso das rotas da API acontecem por meio de um token que é gera
 
 ## Endpoints
 
-- GET `/` : Página inicial. Informa as cidades cadastradas.
+- GET `/` : Rota inicial
 
-- POST `/users` : Retorna usuários cadastrados
+- POST `/users` : Cadastro de usuário
 
 - GET `/users/:id/saved/tours` : Retorna os pontos turísticos salvos de um determinado usuário (**rota privada** acessada apenas por token)
 
@@ -138,9 +137,3 @@ npm run dev
 #### 5. Para acessar as rotas privadas da API, é necessário enviar o token no cabeçalho das requisições
 
 <a name="demonstracao"/>
-
-## Demonstração
-
-#### Página inicial
-
-![preview](./preview/index.png)

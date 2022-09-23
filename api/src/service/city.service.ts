@@ -25,7 +25,7 @@ export async function findAllCities() {
   return CityModel.find().sort();
 }
 
-export async function getCitiesNames() {
+export async function getCitiesList() {
 
   let citiesList = [];
 
