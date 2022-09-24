@@ -7,6 +7,12 @@ import {
   getUserSavedHotelsHandler,
   getUserSavedRestaurantsHandler,
   getUserSavedToursHandler,
+  removeHotelHandler,
+  removeRestaurantHandler,
+  removeTourHandler,
+  saveHotelHandler,
+  saveRestaurantHandler,
+  saveTourHandler,
   updateUserHandler
 } from './controller/user.controller';
 
@@ -75,6 +81,18 @@ function routes(app: Express) {
   app.get('/hotels', getAllHotelsHandler);
 
   app.get('/restaurants', getAllRestaurantsHandler);
+
+  app.post('/users/:id/saved/tours', requireUser, saveTourHandler);
+
+  app.delete('/users/:id/saved/tours', requireUser, removeTourHandler);
+
+  app.post('/users/:id/saved/restaurants', requireUser, saveRestaurantHandler);
+
+  app.delete('/users/:id/saved/restaurants', requireUser, removeRestaurantHandler);
+
+  app.post('/users/:id/saved/hotels', requireUser, saveHotelHandler);
+
+  app.delete('/users/:id/saved/hotels', requireUser, removeHotelHandler);
 }
 
 export default routes;

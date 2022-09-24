@@ -5,6 +5,12 @@ import {
   findHotels,
   findRestaurants,
   findTours,
+  removeHotel,
+  removeRestaurant,
+  removeTour,
+  saveHotel,
+  saveRestaurant,
+  saveTour,
   updateUser
 }
   from "../service/user.service";
@@ -99,8 +105,6 @@ export async function updateUserHandler(req: Request, res: Response) {
 
   const { id } = req.params;
 
-  console.log(id)
-
   const update = req.body;
 
   if (String(tokenId) !== id) {
@@ -112,5 +116,141 @@ export async function updateUserHandler(req: Request, res: Response) {
   });
 
   return res.send(updatedUser);
+
+}
+
+export async function saveTourHandler(req: Request, res: Response) {
+
+  const tokenId = res.locals.user._id;
+
+  const { id } = req.params;
+
+  const { tour } = req.body;
+
+  console.log(tour);
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
+
+  try {
+    await saveTour({ _id: id }, tour);
+    return res.status(200).send('added to saved items')
+
+  } catch (e: any) {
+
+    console.log('error')
+    return res.status(409).send(e.message)
+  }
+
+}
+
+export async function removeTourHandler(req: Request, res: Response) {
+
+  const tokenId = res.locals.user._id;
+
+  const { id } = req.params;
+
+  const { tour } = req.body;
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
+
+  try {
+    await removeTour({ _id: id }, tour);
+    return res.status(200).json({ message: 'removed from saved items' });
+
+  } catch (e: any) {
+    return res.status(409).send(e.message);
+  }
+
+}
+
+export async function saveRestaurantHandler(req: Request, res: Response) {
+
+  const tokenId = res.locals.user._id;
+
+  const { id } = req.params;
+
+  const { restaurant } = req.body;
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
+
+  try {
+    await saveRestaurant({ _id: id }, restaurant);
+    return res.status(200).json({ message: 'added to saved items' });
+
+  } catch (e: any) {
+    return res.status(409).send(e.message)
+  }
+
+}
+
+export async function removeRestaurantHandler(req: Request, res: Response) {
+
+  const tokenId = res.locals.user._id;
+
+  const { id } = req.params;
+
+  const { restaurant } = req.body;
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
+
+  try {
+    await removeRestaurant({ _id: id }, restaurant);
+    return res.status(200).json({ message: 'removed from saved items' });
+
+  } catch (e: any) {
+    return res.status(409).send(e.message);
+  }
+
+}
+
+export async function saveHotelHandler(req: Request, res: Response) {
+
+  const tokenId = res.locals.user._id;
+
+  const { id } = req.params;
+
+  const { hotel } = req.body;
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
+
+  try {
+    await saveHotel({ _id: id }, hotel);
+    return res.status(200).json({ message: 'added to saved items' });
+
+  } catch (e: any) {
+    return res.status(409).send(e.message)
+  }
+
+}
+
+export async function removeHotelHandler(req: Request, res: Response) {
+
+  const tokenId = res.locals.user._id;
+
+  const { id } = req.params;
+
+  const { hotel } = req.body;
+
+  if (String(tokenId) !== id) {
+    return res.sendStatus(403);
+  }
+
+  try {
+    await removeHotel({ _id: id }, hotel);
+    return res.status(200).json({ message: 'removed from saved items' });
+
+  } catch (e: any) {
+    return res.status(409).send(e.message);
+  }
 
 }

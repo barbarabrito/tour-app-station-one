@@ -1,6 +1,6 @@
 import { DocumentDefinition, QueryOptions, UpdateQuery } from 'mongoose';
 import { FilterQuery } from "mongoose";
-import { omit } from "lodash";
+import { omit, rest } from "lodash";
 import UserModel, { UserDocument } from "../models/user.model";
 
 export async function createUser(input: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt' | 'comparePassword'>>) {
@@ -55,4 +55,118 @@ export async function updateUser(
   options: QueryOptions
 ) {
   return UserModel.findByIdAndUpdate(query, update, options);
+}
+
+export async function saveTour(
+  queryUser: FilterQuery<UserDocument>,
+  queryTour: string
+) {
+
+  const user = await UserModel.findById(queryUser);
+
+  if (user) {
+
+    try {
+      user.tours.push(queryTour);
+      await user.save();
+    } catch (e: any) {
+      throw new Error(e);
+    }
+
+  }
+}
+
+export async function removeTour(
+  queryUser: FilterQuery<UserDocument>,
+  queryTour: FilterQuery<UserDocument>) {
+
+  const user = await UserModel.findById(queryUser);
+
+  if (user) {
+
+    try {
+      await UserModel.updateOne(queryUser, { "$pull": { "tours": queryTour } })
+      await user.save();
+    } catch (e: any) {
+      throw new Error(e);
+    }
+
+  }
+
+}
+
+export async function saveRestaurant(
+  queryUser: FilterQuery<UserDocument>,
+  queryRestaurant: string
+) {
+
+  const user = await UserModel.findById(queryUser);
+
+  if (user) {
+
+    try {
+      user.restaurants.push(queryRestaurant);
+      await user.save();
+    } catch (e: any) {
+      throw new Error(e);
+    }
+
+  }
+}
+
+export async function removeRestaurant(
+  queryUser: FilterQuery<UserDocument>,
+  queryRestaurant: FilterQuery<UserDocument>) {
+
+  const user = await UserModel.findById(queryUser);
+
+  if (user) {
+
+    try {
+      await UserModel.updateOne(queryUser, { "$pull": { "restaurants": queryRestaurant } })
+      await user.save();
+    } catch (e: any) {
+      throw new Error(e);
+    }
+
+  }
+
+}
+
+export async function saveHotel(
+  queryUser: FilterQuery<UserDocument>,
+  queryHotel: string
+) {
+
+  const user = await UserModel.findById(queryUser);
+
+  if (user) {
+
+    try {
+      user.hotels.push(queryHotel);
+      await user.save();
+    } catch (e: any) {
+      throw new Error(e);
+    }
+
+  }
+}
+
+export async function removeHotel(
+  queryUser: FilterQuery<UserDocument>,
+  queryHotel: FilterQuery<UserDocument>) {
+
+  const user = await UserModel.findById(queryUser);
+
+  if (user) {
+
+    try {
+      await UserModel.updateOne(queryUser, { "$pull": { "hotels": queryHotel } })
+      await user.save();
+    } catch (e: any) {
+      throw new Error(e);
+    }
+
+  }
+
 }
