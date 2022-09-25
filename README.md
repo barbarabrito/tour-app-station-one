@@ -126,7 +126,7 @@ O controle de acesso das rotas da API acontece por meio de um token que é gerad
 
 #### 2. Inicie o MongoDB
 
-#### 3. Instale as dependências do projeto:
+#### 3. Dentro do diretório /api, Instale as dependências do projeto:
 
 ```bash
 npm install

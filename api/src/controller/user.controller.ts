@@ -32,8 +32,6 @@ export async function getUserSavedToursHandler(req: Request, res: Response) {
 
   const { id } = req.params;
 
-  console.log(id)
-
   if (String(tokenId) !== id) {
     return res.sendStatus(403);
   }
@@ -41,7 +39,6 @@ export async function getUserSavedToursHandler(req: Request, res: Response) {
   try {
 
     const user = await findTours({ _id: id });
-    console.log(user)
     if (user) {
       res.status(200).json(user.tours);
     }
@@ -56,8 +53,6 @@ export async function getUserSavedHotelsHandler(req: Request, res: Response) {
   const tokenId = res.locals.user._id;
 
   const { id } = req.params;
-
-  console.log(id)
 
   if (String(tokenId) !== id) {
     return res.sendStatus(403);
@@ -80,8 +75,6 @@ export async function getUserSavedRestaurantsHandler(req: Request, res: Response
   const tokenId = res.locals.user._id;
 
   const { id } = req.params;
-
-  console.log(id)
 
   if (String(tokenId) !== id) {
     return res.sendStatus(403);
@@ -126,8 +119,6 @@ export async function saveTourHandler(req: Request, res: Response) {
   const { id } = req.params;
 
   const { tour } = req.body;
-
-  console.log(tour);
 
   if (String(tokenId) !== id) {
     return res.sendStatus(403);

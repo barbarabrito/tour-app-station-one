@@ -1,9 +1,12 @@
 import { DocumentDefinition, QueryOptions, UpdateQuery } from 'mongoose';
 import { FilterQuery } from "mongoose";
-import { omit, rest } from "lodash";
+import { omit } from "lodash";
 import UserModel, { UserDocument } from "../models/user.model";
 
-export async function createUser(input: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt' | 'comparePassword'>>) {
+export async function createUser(input: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt' | 'comparePassword' |
+
+  'tours' | 'restaurants' | 'hotels'>>) {
+
   try {
     const user = await UserModel.create(input);
 

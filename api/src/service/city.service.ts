@@ -34,14 +34,11 @@ export async function getCitiesList() {
     const cities = await CityModel.find().sort();
 
     if (cities) {
-
       for (let i = 0; i < cities.length; i++) {
         let resp = cities[i].name;
         citiesList.push(' ' + resp);
       }
-
     }
-
     return citiesList
 
   } catch (error: any) {
