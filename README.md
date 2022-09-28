@@ -64,7 +64,7 @@ A API possui:
 
 ## Detalhes técnicos
 
-O controle de acesso das rotas da API acontece por meio de um token que é gerado no login. Neste mesmo login é gerado também um _refresh token_. O token de acesso tem a duração de 15 minutos. Após a expiração, uma nova checagem é realizada e se houver um _refresh_ token incluso, será gerado um novo token de acesso.
+O controle de acesso das rotas da API acontece por meio de um token de acesso que é gerado no login. Neste mesmo login é gerado também um token de atualização (_refresh token_). O token de acesso tem a duração de 15 minutos. Após a expiração desse token e assim que uma nova requisição de acesso for feita pelo usuário, o servidor fará uma nova verificação e se ambos tokens (_access token_ e _refresh token_) forem válidos, um novo token de acesso será gerado.
 
 <a name="tecnologias"/>
 
@@ -87,6 +87,15 @@ O controle de acesso das rotas da API acontece por meio de um token que é gerad
 - GET `/` : Rota inicial
 
 - POST `/users` : Cadastro de usuário
+
+  ```json
+  {
+    "email": "user@example.com",
+    "name": "user",
+    "password": "12345678",
+    "passwordConfirmation": "12345678"
+  }
+  ```
 
 - GET `/users/:id/saved/tours` : Retorna os pontos turísticos salvos de um determinado usuário (**rota privada** acessada apenas por token)
 
@@ -126,18 +135,18 @@ O controle de acesso das rotas da API acontece por meio de um token que é gerad
 
 #### 2. Inicie o MongoDB
 
-#### 3. Dentro do diretório /api, Instale as dependências do projeto:
+#### 3. No diretório /api/config, aletere o endereço da `dbUri`. Por ex: 'mongodb://localhost:27017/nomedobanco'.
+
+#### 4. Dentro do diretório /api, Instale as dependências do projeto:
 
 ```bash
 npm install
 ```
 
-#### 4. Execute a aplicação:
+#### 5. Execute a aplicação:
 
 ```bash
 npm run dev
 ```
 
-#### 5. Para acessar as rotas privadas da API, é necessário enviar o token no cabeçalho das requisições
-
-<a name="demonstracao"/>
+#### 6. Para acessar as rotas privadas da API, é necessário enviar o token no cabeçalho das requisições
