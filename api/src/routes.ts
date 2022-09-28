@@ -42,7 +42,7 @@ function routes(app: Express) {
 
       res.send(
         ` <h2> Rota inicial </h2>
-          <p> Cidades disponíveis para consulta: ${list}. </p>
+          <p> Cidades cadastradas: ${list}. </p>
         `
       );
     } else {

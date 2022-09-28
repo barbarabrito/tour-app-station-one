@@ -28,11 +28,11 @@ export async function createUserHandler(req: Request<{}, {}, CreateUserInput["bo
 
 export async function getUserSavedToursHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -50,11 +50,11 @@ export async function getUserSavedToursHandler(req: Request, res: Response) {
 
 export async function getUserSavedHotelsHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -72,11 +72,11 @@ export async function getUserSavedHotelsHandler(req: Request, res: Response) {
 
 export async function getUserSavedRestaurantsHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -94,13 +94,13 @@ export async function getUserSavedRestaurantsHandler(req: Request, res: Response
 
 export async function updateUserHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
   const update = req.body;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -114,13 +114,13 @@ export async function updateUserHandler(req: Request, res: Response) {
 
 export async function saveTourHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
   const { tour } = req.body;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -138,13 +138,13 @@ export async function saveTourHandler(req: Request, res: Response) {
 
 export async function removeTourHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
   const { tour } = req.body;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -160,13 +160,13 @@ export async function removeTourHandler(req: Request, res: Response) {
 
 export async function saveRestaurantHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
   const { restaurant } = req.body;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -182,13 +182,13 @@ export async function saveRestaurantHandler(req: Request, res: Response) {
 
 export async function removeRestaurantHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
   const { restaurant } = req.body;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -204,13 +204,13 @@ export async function removeRestaurantHandler(req: Request, res: Response) {
 
 export async function saveHotelHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
   const { hotel } = req.body;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
@@ -226,13 +226,13 @@ export async function saveHotelHandler(req: Request, res: Response) {
 
 export async function removeHotelHandler(req: Request, res: Response) {
 
-  const tokenId = res.locals.user._id;
+  const localId = res.locals.user._id;
 
   const { id } = req.params;
 
   const { hotel } = req.body;
 
-  if (String(tokenId) !== id) {
+  if (String(localId) !== id) {
     return res.sendStatus(403);
   }
 
