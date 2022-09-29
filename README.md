@@ -60,6 +60,8 @@ A API possui:
 - Uma feature que permite ao usuário guardar/salvar pontos turísticos, hotéis e restaurantes do seu interesse
 - Login e sessão para proteção de acesso ao perfil do usuário
 
+O app está hospedado em: [tour-app-1yrh.onrender.com](https://tour-app-1yrh.onrender.com)
+
 <a name="detalhes-tecnicos"/>
 
 ## Detalhes técnicos
