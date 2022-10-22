@@ -81,6 +81,8 @@ O controle de acesso das rotas da API acontece por meio de um token de acesso qu
 - lodash
 - mongoose
 - zod
+- swagger-ui-express
+- swagger-autogen
 
 <a name="endpoints"/>
 
@@ -105,6 +107,8 @@ O controle de acesso das rotas da API acontece por meio de um token de acesso qu
 
 - GET `/users/:id/saved/restaurants` : Retorna os restaurantes salvos de um determinado usuário (**rota privada**)
 
+- GET `/users` : Retorna os usuários cadastrados
+
 - POST `/sessions` : Cria a sessão do usuário
 
 - GET `/sessions` : Retorna as sessões de um usuário (**rota privada**)
@@ -115,7 +119,7 @@ O controle de acesso das rotas da API acontece por meio de um token de acesso qu
 
 - GET `/cities` : Retorna todas as cidades cadastradas
 
-- GET `/cities/:name` : Rota de pesquisa. Retorna a cidade passada como parâmetro. O nome deve ser digitado respeitando letras maiúsculas e acentos. Ex: localhost:5000/cities/São Paulo.
+- GET `/cities/:name` : Rota de pesquisa. Retorna a cidade passada como parâmetro. O nome deve ser digitado respeitando letras maiúsculas, espaços e acentos. Ex: localhost:5000/cities/São Paulo.
 
 - PATCH `/users/edit/:id` : Rota que permite que o usuário altere seus dados de perfil (**rota privada**)
 
@@ -125,30 +129,34 @@ O controle de acesso das rotas da API acontece por meio de um token de acesso qu
 
 - GET `/hotels` : Retorna todos os hotéis cadastrados
 
-- POST `/users/saved/[tours/restaurants/hotels]` : Salva pontos turísticos, restaurantes ou hotéis na conta do usuário. Ex: localhost:5000/users/saved/tours adiciona pontos turísticos
+- POST `/users/id:/saved/[tours/restaurants/hotels]` : Salva pontos turísticos, restaurantes ou hotéis na conta do usuário. Ex: localhost:5000/users/saved/tours adiciona pontos turísticos
 
-- DELETE `/users/saved/[tours/restaurants/hotels]` : Remove pontos turísticos, restaurantes ou hotéis na conta do usuário. Ex: localhost:5000/users/saved/tours remove pontos turísticos
+- DELETE `/users/id:/saved/[tours/restaurants/hotels]` : Remove pontos turísticos, restaurantes ou hotéis na conta do usuário. Ex: localhost:5000/users/saved/tours remove pontos turísticos
 
 <a name="instrucoes"/>
 
 ## Instruções para rodar o app
 
-#### 1. Você vai precisar de uma chave privada e uma chave pública para substituir as varáveis de ambiente `PRIVATE_KEY` e `PUBLIC_KEY`. Você pode gerar suas chaves aqui: [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo)
+#### 1. Você vai precisar de uma chave privada e de uma chave pública para substituir os valores das varáveis de ambiente `PRIVATE_KEY` e `PUBLIC_KEY`. Você pode gerar suas chaves aqui: [Online RSA Key Generator](https://travistidwell.com/jsencrypt/demo).
 
-#### 2. Inicie o MongoDB
+#### 2. Crie um arquivo .env na raiz do projeto com as variáveis de ambiente `PUBLIC_KEY`, `PRIVATE_KEY`, `DB_USER` e `DB_PASS` e defina seu valores. 
 
-#### 3. No diretório /api/config, aletere o endereço da `dbUri`. Por ex: 'mongodb://localhost:27017/nomedobanco'.
+#### 3. Inicie o MongoDB
 
-#### 4. Dentro do diretório /api, Instale as dependências do projeto:
+#### 4. No diretório /api/config, aletere o endereço da `dbUri`. Por ex: 'mongodb://localhost:27017/nomedobanco'.
+
+#### 5. Dentro do diretório /api, Instale as dependências do projeto:
 
 ```bash
 npm install
 ```
 
-#### 5. Execute a aplicação:
+#### 6. Execute a aplicação:
 
 ```bash
 npm run dev
 ```
 
-#### 6. Para acessar as rotas privadas da API, é necessário enviar o token no cabeçalho das requisições
+Para acessar as rotas privadas da API, é necessário enviar o token no cabeçalho das requisições
+
+Documentação disponível em [https://tour-app-1yrh.onrender.com/docs](https://tour-app-1yrh.onrender.com/docs).
