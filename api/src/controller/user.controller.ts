@@ -5,6 +5,7 @@ import {
   findHotels,
   findRestaurants,
   findTours,
+  getAllUsers,
   removeHotel,
   removeRestaurant,
   removeTour,
@@ -24,6 +25,11 @@ export async function createUserHandler(req: Request<{}, {}, CreateUserInput["bo
     console.log('error')
     return res.status(409).send(e.message)
   }
+}
+
+export async function getAllUsersHandler(req: Request, res: Response) {
+  const users = await getAllUsers();
+  res.status(200).json({ users: users });
 }
 
 export async function getUserSavedToursHandler(req: Request, res: Response) {

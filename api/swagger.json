@@ -1,0 +1,738 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "tour-app API",
+    "description": "API de um app onde um usuário pode consultar informações a respeito da cidade e dos seus respectivos pontos turísticos/restaurantes/hotéis.",
+    "contact": {
+      "email": "barbaramabrito@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "host": "tour-app-1yrh.onrender.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/healthcheck": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "description": "Cadastro de usuário",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "get": {
+        "description": "Retorna todos os usuários",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/{id}/saved/tours": {
+      "get": {
+        "description": "Retorna os pontos turísticos favoritos de um determinado usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Salva pontos turísticos na conta do usuário.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do usuário"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "O Corpo deve conter o ID do ponto turístico a ser salvo.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tour": {
+                  "type": "string",
+                  "example": "632d22d11d8fc6630e0edf79"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "description": "Remove pontos turísticos da conta do usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do usuário"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "O Corpo deve conter o ID do ponto turístico a ser removido.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tour": {
+                  "type": "string",
+                  "example": "632d22d11d8fc6630e0edf79"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/{id}/saved/hotels": {
+      "get": {
+        "description": "Retorna os hotéis favoritos de um determinado usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Salva hotéis favoritos na conta do usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do usuário"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "O Corpo deve conter o ID do hotel a ser salvo.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "hotel": {
+                  "type": "string",
+                  "example": "632d22d11dffc6630e0edf79"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "description": "Remove hotéis favoritos da conta do usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do usuário"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "O Corpo deve conter o ID do hotel a ser removido.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "hotel": {
+                  "type": "string",
+                  "example": "632d22d11d8fcff30e0edf79"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/users/{id}/saved/restaurants": {
+      "get": {
+        "description": "Retorna os restaurantes favoritos de um determinado usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do Usuário"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Salva restaurantes favoritos na conta do usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do usuário"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "O Corpo deve conter o ID do restaurante a ser salvo.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "restaurant": {
+                  "type": "string",
+                  "example": "632d22d6578fc6630e0edf79"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "description": "Remove restaurantes favoritos da conta do usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do usuário"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "O Corpo deve conter o ID do restaurante a ser removido.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tour": {
+                  "type": "string",
+                  "example": "632d22d11sffc6630e0edf79"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/sessions": {
+      "post": {
+        "description": "Login. Cria a sessão.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "user@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "description": "Retorna as sessões de um usuário",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "description": "Remove a sessão do usuário",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/cities": {
+      "post": {
+        "description": "Cadastro de cidades",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Cities"
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "get": {
+        "description": "Retorna todas as cidades cadastradas",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cities/{name}": {
+      "get": {
+        "description": "Rota de pesquisa. Retorna a cidade passada como parâmetro.",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "O nome deve ser digitado respeitando letras maiúsculas, espaços e acentos."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/edit/{id}": {
+      "patch": {
+        "description": "Rota que permite que o usuário altere os dados da sua conta",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do usuário"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "O Corpo deve conter a informação a ser alterada.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "John Doe"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/tours": {
+      "get": {
+        "description": "Retorna todas os pontos turísticos cadastrados",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/hotels": {
+      "get": {
+        "description": "Retorna todas os hotéis cadastrados",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/restaurants": {
+      "get": {
+        "description": "Retorna todas os restaurantes cadastrados",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "user@example.com"
+        },
+        "name": {
+          "type": "string",
+          "example": "User"
+        },
+        "password": {
+          "type": "string",
+          "example": "12345678"
+        },
+        "passwordConfrimation": {
+          "type": "string",
+          "example": "12345678"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "password",
+        "passwordConfrimation"
+      ]
+    },
+    "Cities": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": ""
+        },
+        "tours": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": ""
+              },
+              "address": {
+                "type": "string",
+                "example": ""
+              },
+              "photo": {
+                "type": "string",
+                "example": ""
+              }
+            },
+            "required": [
+              "name",
+              "address",
+              "photo"
+            ]
+          }
+        },
+        "restaurants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": ""
+              },
+              "address": {
+                "type": "string",
+                "example": ""
+              },
+              "phone": {
+                "type": "string",
+                "example": ""
+              },
+              "photo": {
+                "type": "string",
+                "example": ""
+              }
+            },
+            "required": [
+              "name",
+              "address",
+              "phone",
+              "photo"
+            ]
+          }
+        },
+        "hotels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": ""
+              },
+              "address": {
+                "type": "string",
+                "example": ""
+              },
+              "phone": {
+                "type": "string",
+                "example": ""
+              },
+              "photo": {
+                "type": "string",
+                "example": ""
+              }
+            },
+            "required": [
+              "name",
+              "address",
+              "phone",
+              "photo"
+            ]
+          }
+        },
+        "photo": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "name",
+        "tours",
+        "restaurants",
+        "hotels",
+        "photo"
+      ]
+    }
+  },
+  "defAddUser": [
+    {
+      "$ref": "#/definitions/User"
+    }
+  ],
+  "defCities": [
+    {
+      "$ref": "#/definitions/Cities"
+    }
+  ]
+}

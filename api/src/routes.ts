@@ -4,6 +4,7 @@ import validateResource from './middleware/vaidateResource'
 
 import {
   createUserHandler,
+  getAllUsersHandler,
   getUserSavedHotelsHandler,
   getUserSavedRestaurantsHandler,
   getUserSavedToursHandler,
@@ -54,45 +55,244 @@ function routes(app: Express) {
     res.sendStatus(200);
   });
 
-  app.post('/users', validateResource(createUserSchema), createUserHandler);
+  app.post('/users', validateResource(createUserSchema), createUserHandler, 
+     /*
+      #swagger.description = 'Cadastro de usuário'
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        schema: { $ref: '#/definitions/User' } 
+      }
+    */
+  );
+  
+  app.get('/users', getAllUsersHandler
+    /*
+      #swagger.description = 'Retorna todos os usuários'
+    */
+  );
 
-  app.get('/users/:id/saved/tours', requireUser, getUserSavedToursHandler);
+  app.get('/users/:id/saved/tours', requireUser, getUserSavedToursHandler
+     /*
+      #swagger.description = 'Retorna os pontos turísticos favoritos de um determinado usuário'
+      #swagger.parameters['id'] = { description: 'ID do usuário' }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.get('/users/:id/saved/hotels', requireUser, getUserSavedHotelsHandler);
+  app.get('/users/:id/saved/hotels', requireUser, getUserSavedHotelsHandler
+    /*
+      #swagger.description = 'Retorna os hotéis favoritos de um determinado usuário'
+      #swagger.parameters['id'] = { description: 'ID do usuário' }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.get('/users/:id/saved/restaurants', requireUser, getUserSavedRestaurantsHandler);
+  app.get('/users/:id/saved/restaurants', requireUser, getUserSavedRestaurantsHandler
+    /*
+      #swagger.description = 'Retorna os restaurantes favoritos de um determinado usuário'
+      #swagger.parameters['id'] = { description: 'ID do Usuário' }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.post('/sessions', validateResource(createSessionSchema), createUserSessionHandler);
+  app.post('/sessions', validateResource(createSessionSchema), createUserSessionHandler
+    /*
+    #swagger.description = 'Login. Cria a sessão.'
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        schema: {
+          $email: 'user@example.com',
+          $password: '12345678'
+        } 
+      }
+    */
+  );
 
-  app.get('/sessions', requireUser, getUserSessionsHandler);
+  app.get('/sessions', requireUser, getUserSessionsHandler
+    /*
+      #swagger.description = 'Retorna as sessões de um usuário'
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.delete('/sessions', requireUser, deleteSessionHandler);
+  app.delete('/sessions', requireUser, deleteSessionHandler
+    /*
+      #swagger.description = 'Remove a sessão do usuário'
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.post('/cities', validateResource(createCitySchema), createCityHandler);
+  app.post('/cities', validateResource(createCitySchema), createCityHandler
+    /*
+      #swagger.description = 'Cadastro de cidades'
+      #swagger.parameters['obj'] = {
+        in: 'body', 
+        schema: { $ref: '#/definitions/Cities' } 
+      }
+    */
+  );
 
-  app.get('/cities', getAllCitiesHandler);
+  app.get('/cities', getAllCitiesHandler
+    /*
+      #swagger.description = 'Retorna todas as cidades cadastradas' 
+    */
+  );
 
-  app.get('/cities/:name', getCitiesByNameHandler);
+  app.get('/cities/:name', getCitiesByNameHandler
+    /*
+      #swagger.description = 'Rota de pesquisa. Retorna a cidade passada como parâmetro.'
+      #swagger.parameters['name'] = {
+        description : 'O nome deve ser digitado respeitando letras maiúsculas, espaços e acentos.'
+      }
+    */
+  );
 
-  app.patch("/users/edit/:id", requireUser, updateUserHandler);
+  app.patch("/users/edit/:id", requireUser, updateUserHandler
+    /*
+      #swagger.description = 'Rota que permite que o usuário altere os dados da sua conta',
+      #swagger.parameters['id'] = { description : 'Id do usuário'}
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        description : 'O Corpo deve conter a informação a ser alterada.',
+        schema: {
+          name: 'John Doe'
+        }
+      }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.get('/tours', getAllToursHandler);
+  app.get('/tours', getAllToursHandler
+    /*
+      #swagger.description = 'Retorna todas os pontos turísticos cadastrados' 
+    */
+  );
 
-  app.get('/hotels', getAllHotelsHandler);
+  app.get('/hotels', getAllHotelsHandler
+    /*
+      #swagger.description = 'Retorna todas os hotéis cadastrados' 
+    */
+  );
 
-  app.get('/restaurants', getAllRestaurantsHandler);
+  app.get('/restaurants', getAllRestaurantsHandler
+    /*
+      #swagger.description = 'Retorna todas os restaurantes cadastrados' 
+    */
+  );
 
-  app.post('/users/:id/saved/tours', requireUser, saveTourHandler);
+  app.post('/users/:id/saved/tours', requireUser, saveTourHandler
+    /*
+      #swagger.description = 'Salva pontos turísticos na conta do usuário.',
+      #swagger.parameters['id'] = { description : 'Id do usuário'}
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        description : 'O Corpo deve conter o ID do ponto turístico a ser salvo.',
+        schema: {
+          tour: '632d22d11d8fc6630e0edf79'
+        }
+      }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.delete('/users/:id/saved/tours', requireUser, removeTourHandler);
+  app.delete('/users/:id/saved/tours', requireUser, removeTourHandler
+    /*
+      #swagger.description = 'Remove pontos turísticos da conta do usuário',
+      #swagger.parameters['id'] = { description : 'Id do usuário'}
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        description : 'O Corpo deve conter o ID do ponto turístico a ser removido.',
+        schema: {
+          tour: '632d22d11d8fc6630e0edf79'
+        }
+      }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.post('/users/:id/saved/restaurants', requireUser, saveRestaurantHandler);
+  app.post('/users/:id/saved/restaurants', requireUser, saveRestaurantHandler
+    /*
+      #swagger.description = 'Salva restaurantes favoritos na conta do usuário',
+      #swagger.parameters['id'] = { description : 'Id do usuário'}
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        description : 'O Corpo deve conter o ID do restaurante a ser salvo.',
+        schema: {
+          restaurant: '632d22d6578fc6630e0edf79'
+        }
+      }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.delete('/users/:id/saved/restaurants', requireUser, removeRestaurantHandler);
+  app.delete('/users/:id/saved/restaurants', requireUser, removeRestaurantHandler
+    /*
+      #swagger.description = 'Remove restaurantes favoritos da conta do usuário',
+      #swagger.parameters['id'] = { description : 'Id do usuário'}
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        description : 'O Corpo deve conter o ID do restaurante a ser removido.',
+        schema: {
+          tour: '632d22d11sffc6630e0edf79'
+        }
+      }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.post('/users/:id/saved/hotels', requireUser, saveHotelHandler);
+  app.post('/users/:id/saved/hotels', requireUser, saveHotelHandler
+    /*
+      #swagger.description = 'Salva hotéis favoritos na conta do usuário',
+      #swagger.parameters['id'] = { description : 'Id do usuário'}
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        description : 'O Corpo deve conter o ID do hotel a ser salvo.',
+        schema: {
+          hotel: '632d22d11dffc6630e0edf79'
+        }
+      }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 
-  app.delete('/users/:id/saved/hotels', requireUser, removeHotelHandler);
+  app.delete('/users/:id/saved/hotels', requireUser, removeHotelHandler
+    /*
+      #swagger.description = 'Remove hotéis favoritos da conta do usuário',
+      #swagger.parameters['id'] = { description : 'Id do usuário'}
+      #swagger.parameters['obj'] = {
+        in: 'body',
+        description : 'O Corpo deve conter o ID do hotel a ser removido.',
+        schema: {
+          hotel: '632d22d11d8fcff30e0edf79'
+        }
+      }
+      #swagger.security = [{
+        "apiKeyAuth": []
+      }]
+    */
+  );
 }
 
 export default routes;

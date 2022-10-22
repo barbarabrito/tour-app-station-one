@@ -39,6 +39,10 @@ export async function findUser(query: FilterQuery<UserDocument>) {
   return UserModel.findOne(query).lean();
 }
 
+export async function getAllUsers() {
+  return UserModel.find().select("-password").sort();
+}
+
 export async function findTours(query: FilterQuery<UserDocument>) {
   return UserModel.findById(query).populate('tours');
 }
