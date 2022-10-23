@@ -607,7 +607,7 @@
           "type": "string",
           "example": "12345678"
         },
-        "passwordConfrimation": {
+        "passwordConfirmation": {
           "type": "string",
           "example": "12345678"
         }
@@ -616,7 +616,7 @@
         "email",
         "name",
         "password",
-        "passwordConfrimation"
+        "passwordConfirmation"
       ]
     },
     "Cities": {

@@ -4,8 +4,8 @@ const doc = {
   info: {
     title: 'tour-app API',
     description: 'API de um app onde um usuário pode consultar informações a respeito da cidade e dos seus respectivos pontos turísticos/restaurantes/hotéis.',
-    contact:{
-    email:"barbaramabrito@gmail.com"
+    contact: {
+      email: "barbaramabrito@gmail.com"
     }
   },
   host: 'tour-app-1yrh.onrender.com',
@@ -17,33 +17,33 @@ const doc = {
       in: 'header'
     }
   },
-  definitions:{
-    User:{
+  definitions: {
+    User: {
       $email: 'user@example.com',
       $name: 'User',
       $password: '12345678',
-      $passwordConfrimation:'12345678'
+      $passwordConfirmation: '12345678'
     },
-    Cities:{
+    Cities: {
       $name: '',
       $tours: [{
-        $name:'',
-        $address:'',
-        $photo:''
+        $name: '',
+        $address: '',
+        $photo: ''
       }],
       $restaurants: [{
-        $name:'',
-        $address:'',
-        $phone:'',
-        $photo:''
+        $name: '',
+        $address: '',
+        $phone: '',
+        $photo: ''
       }],
       $hotels: [{
-        $name:'',
-        $address:'',
-        $phone:'',
-        $photo:''
+        $name: '',
+        $address: '',
+        $phone: '',
+        $photo: ''
       }],
-      $photo:''
+      $photo: ''
     },
   },
   defAddUser: [{ $ref: '#/definitions/User' }],
